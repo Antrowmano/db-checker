@@ -1,0 +1,1 @@
+select concat('select',' ',"'",table_schema,"'",',',"'",table_name,"'",',',' ','count(*)',' ','from',' ',table_schema,'.',table_name,';') from information_schema.tables where table_schema not in ('sys','performance_schema','mysql','information_schema') and table_name not like '%archive%' order by table_name;
