@@ -1,0 +1,5 @@
+echo -n User:
+read user
+echo -n Password:
+read -s pass
+mysql --silent -u $user -p$pass --skip-column-names --execute "select concat('\'',User,'\'@\'',Host,'\'') as User from mysql.user" | sort | while read u;  do echo "-- $u"; mysql --silent  -u $user -p$pass --skip-column-names --execute "show grants for $u" | sed 's/$/;/'; done > user_ip.sql
