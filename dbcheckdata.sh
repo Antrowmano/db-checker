@@ -44,9 +44,20 @@ do
         echo ==================================================================
         echo User,Host in processlist:
 
-
         mysql -u $user -p$pass -se "select count(*),user,db from information_schema.processlist group by COMMAND;"
+        
+        echo ==================================================================
+        echo Transaction: InnoDB History Length:
 
+        mysql -u $user -p$pass -se "select name, count from information_schema.INNODB_METRICS where name like '%hist%';"
+
+
+        echo ==================================================================
+        echo IOPS:
+
+        iostat -x
+        
+        
         )>"$(date +"%Y_%m_%d_%I_%M_%p").log"
 sleep 60
 done
